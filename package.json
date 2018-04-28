@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha-webpack src/__tests__ --watch"
+    "test": "mocha-webpack src/**/*.test.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

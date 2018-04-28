@@ -1,6 +1,6 @@
 {
   // Helper functions for parser
-  const _ = require('./node').default
+  const _ = require('../common/node').default
 }
 
 // query

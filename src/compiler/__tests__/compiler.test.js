@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import compiler from '../compiler'
-import _ from '../node'
+import _ from '../../common/node'
 
 const literalTests = [
   [_('number', '1'), '1'],
