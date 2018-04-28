@@ -1,57 +1,10 @@
 import { expect } from 'chai';
 import parser from '../parser'
+import literalTests from './literalTests.json'
+import dotSyntaxTests from './dotSyntaxTests.json'
 
 const find_leaf = node => 
   typeof node.value === 'object' ? find_leaf(node.value) : node
-
-const literalTests = [
-  ['', '1',         ['number', '1']],
-  ['', '1.0',       ['number', '1.0']],
-  ['', '1.01202',   ['number', '1.01202']],
-  ['', '2',         ['number', '2']],
-  ['', '23456789',  ['number', '23456789']],
-  ['', '-34',       ['number', '-34']],
-  ['', '-34.12',    ['number', '-34.12']],
-]
-
-const dotSyntaxTests = [
-  ['', '1,2', {
-    type: 'query', value: {
-      type: 'dot_syntax', value: [
-        {type: 'number', value: '1'},
-        {type: 'number', value: '2'},
-      ]
-    }
-  }],
-  ['', '1.2 , -4', {
-    type: 'query', value: {
-      type: 'dot_syntax', value: [
-        {type: 'number', value: '1.2'},
-        {type: 'number', value: '-4'},
-      ]
-    }
-  }],
-  ['', '1.2 , -4, 0', {
-    type: 'query', value: {
-      type: 'dot_syntax', value: [
-        {type: 'number', value: '1.2'},
-        {type: 'number', value: '-4'},
-        {type: 'number', value: '0'},
-      ]
-    }
-  }],
-  ['', '1.2 , -4, 0, 0', {
-    type: 'query', value: {
-      type: 'dot_syntax', value: [
-        {type: 'number', value: '1.2'},
-        {type: 'number', value: '-4'},
-        {type: 'number', value: '0'},
-        {type: 'number', value: '0'},
-      ]
-    }
-  }],
-
-]
 
 
 describe('parser', () => {
