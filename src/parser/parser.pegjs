@@ -11,13 +11,14 @@ expression  = dot_syntax
 ws          = " "*
 
 // DOT SYNTAX
-dot_syntax  = left:number "," right:dot_syntax
+dot_syntax  = left:literal "," right:dot_syntax
                                     {return _('dot_syntax', [
                                       left ].concat(right.value))}
             / value:literal         {return _('dot_syntax', [value])}
 
 // LITERALS
 literal     = number
+            / array
 
 // number literal
 number      = ws minus? int frac? ws
@@ -26,3 +27,7 @@ frac        = dec_point int
 int         = [0-9]+
 minus       = "-"
 dec_point   = "."
+
+// array literal
+array       = "[" values:dot_syntax "]"
+                                    {return _('array', values)}

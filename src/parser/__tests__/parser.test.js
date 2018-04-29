@@ -2,10 +2,15 @@ import { expect } from 'chai';
 import parser from '../parser'
 import literalTests from './literalTests.json'
 import dotSyntaxTests from './dotSyntaxTests.json'
+import arrayLiteralTests from './arrayLiteralTests.json'
 
 const find_leaf = node => 
   typeof node.value === 'object' ? find_leaf(node.value) : node
 
+const tests = {
+  "dot syntax": dotSyntaxTests,
+  "array literal": arrayLiteralTests
+}
 
 describe('parser', () => {
   literalTests.forEach(([comment, code, [type, value]]) => {
@@ -16,13 +21,7 @@ describe('parser', () => {
     })
   })
 
-  dotSyntaxTests.forEach(([comment, input, output]) => {
-    it(`parses ${input} as ${JSON.stringify(output)}`, () => {
-      const parser_result = parser(input)
-      expect(parser_result).deep.equal(output)
-    })
-  })
-
+  
   it('returns query node', () => {
     expect(parser('1')).deep.equal({
       type: 'query', value: {
@@ -30,6 +29,17 @@ describe('parser', () => {
           {type: 'number', value: '1'}
         ]
       }
+    })
+  })
+})
+
+Object.entries(tests).forEach(([key, value]) => {
+  describe(`parser - ${key}`, () => {
+    value.forEach(([comment, input, output]) => {
+      it(`parses ${input} as ${JSON.stringify(output)}`, () => {
+        const parser_result = parser(input)
+        expect(parser_result).deep.equal(output)
+      })
     })
   })
 })
