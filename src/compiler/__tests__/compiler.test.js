@@ -24,6 +24,11 @@ const literalTests = [
   [_('array', _('dot_syntax', [
     _('number', '3.11'), _('number', '0'), _('number', '1')
   ])), '[3.11, 0, 1]'],
+
+  // Attribute
+  [_('identity', '1'), 'input'],
+  [_('attribute', 'foo'), 'input.foo'],
+  [_('attribute', 'bar'), 'input.bar'],
 ]
 
 describe('parser', () => {

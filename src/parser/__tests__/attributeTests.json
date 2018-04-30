@@ -1,0 +1,50 @@
+[
+  ["", ".", {
+    "type": "query",
+    "value": {
+      "type": "dot_syntax",
+      "value": [
+        {
+          "type": "identity",
+          "value": null
+        }
+      ]
+    }
+  }],
+  ["", ".foo", {
+    "type": "query",
+    "value": {
+      "type": "dot_syntax",
+      "value": [
+        {
+          "type": "attribute",
+          "value": "foo"
+        }
+      ]
+    }
+  }],
+  ["", ".fo_o", {
+    "type": "query",
+    "value": {
+      "type": "dot_syntax",
+      "value": [
+        {
+          "type": "attribute",
+          "value": "fo_o"
+        }
+      ]
+    }
+  }],
+  ["", ".Bar1", {
+    "type": "query",
+    "value": {
+      "type": "dot_syntax",
+      "value": [
+        {
+          "type": "attribute",
+          "value": "Bar1"
+        }
+      ]
+    }
+  }]
+]

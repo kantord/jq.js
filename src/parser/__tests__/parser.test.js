@@ -3,13 +3,15 @@ import parser from '../parser'
 import literalTests from './literalTests.json'
 import dotSyntaxTests from './dotSyntaxTests.json'
 import arrayLiteralTests from './arrayLiteralTests.json'
+import attributeTests from './attributeTests.json'
 
 const find_leaf = node => 
   typeof node.value === 'object' ? find_leaf(node.value) : node
 
 const tests = {
   "dot syntax": dotSyntaxTests,
-  "array literal": arrayLiteralTests
+  "array literal": arrayLiteralTests,
+  "attribute": attributeTests,
 }
 
 describe('parser', () => {

@@ -2,6 +2,8 @@ import _ from '../common/node'
 
 const rules = {
   'number': ({ value }) => value,
+  'identity': ({ value }) => 'input',
+  'attribute': ({ value }) => `input.${value}`,
   'dot_syntax': ({ value }) =>
     `[${value.map(compile).join(', ')}]`,
   'array': ({ value }) => compile(value),
