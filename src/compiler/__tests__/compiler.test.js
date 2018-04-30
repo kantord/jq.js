@@ -1,38 +1,19 @@
 import { expect } from 'chai';
 import compiler from '../compiler'
-import _ from '../../common/node'
+import numberLiteral from './numberLiteral'
+import arrayLiteral from './arrayLiteral'
+import attribute from './attribute'
+import dotSyntax from './dotSyntax'
 
-const literalTests = [
-  // Number literal
-  [_('number', '1'), '1'],
-  [_('number', '-3.14'), '-3.14'],
-  [_('query', _('number', '-3.14')), '(function(input) {return -3.14})'],
-  [_('query', _('number', '3.14')), '(function(input) {return 3.14})'],
-  
-  // Dot syntax
-  [_('query', _('dot_syntax', [
-    _('number', '3.14'), _('number', '0')
-  ])), '(function(input) {return [3.14, 0]})'],
-  [_('query', _('dot_syntax', [
-    _('number', '3.11'), _('number', '0'), _('number', '1')
-  ])), '(function(input) {return [3.11, 0, 1]})'],
-  [_('query', _('dot_syntax', [
-    _('number', '3.11'), _('number', '0'), _('number', '1')
-  ])), '(function(input) {return [3.11, 0, 1]})'],
-
-  // Array literal
-  [_('array', _('dot_syntax', [
-    _('number', '3.11'), _('number', '0'), _('number', '1')
-  ])), '[3.11, 0, 1]'],
-
-  // Attribute
-  [_('identity', '1'), 'input'],
-  [_('attribute', 'foo'), 'input.foo'],
-  [_('attribute', 'bar'), 'input.bar'],
-]
+const tests = [
+  numberLiteral,
+  arrayLiteral,
+  attribute,
+  dotSyntax,
+].reduce((a, b) => a.concat(b), [])
 
 describe('parser', () => {
-  literalTests.forEach(([node, code_out]) => {
+  tests.forEach(([node, code_out]) => {
     it(`compiles ${JSON.stringify(node)} to ${code_out}`, () => {
       expect(compiler(node)).equal(code_out)
     })
