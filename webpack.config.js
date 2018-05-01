@@ -4,7 +4,7 @@ module.exports = {
     rules: [
       {
         test: /\.pegjs$/,
-        loader: 'pegjs-loader?trace=false&cache=true'
+        loader: 'pegjs-loader?trace=true&cache=false'
       },
       {
         test: /(\.jsx|\.js)$/,

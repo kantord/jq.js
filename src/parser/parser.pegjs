@@ -1,6 +1,7 @@
 {
   // Helper functions for parser
   const _ = require('../common/node').default
+  const _$ = require('../common/node_or_child').default
 }
 
 // query
@@ -11,22 +12,38 @@ expression  = dot_syntax
 ws          = " "*
 
 // DOT SYNTAX
-dot_syntax  = left:simple_expr "," right:dot_syntax
-                                    {return _('dot_syntax', [
-                                      left ].concat(right.value))}
-            / value:simple_expr     {return _('dot_syntax', [value])}
+dot_syntax  = ws left:pipe ws right:(("," ws pipe ws)*)
+                {
+                  return _('dot_syntax',
+                    right.reduce(
+                      (result, element) => result.concat([element[2]]),
+                      [left]
+                    )
+                  )
+                }
+
+// PIPE
+pipe  = ws left:simple_expr ws right:(("|" ws simple_expr ws)*)
+                {
+                  return _$('pipe',
+                    right.reduce(
+                      (result, element) => result.concat([element[2]]),
+                      [left]
+                    )
+                  )
+                }
 
 // SIMPLE EXPRESSION
-simple_expr = literal
-            / attribute_expr
+simple_expr = attribute_expr
+            / literal
 
 // ATTRIBUTE EXPRESSIONS
 attribute_expr
             = attribute
             / identity
 
-identity    = ws "." ws             {return _('identity', null)}
-attribute    = ws "." iden:iden ws  {return _('attribute', iden)}
+identity    = "."             {return _('identity', null)}
+attribute    = "." iden:iden  {return _('attribute', iden)}
 
 // LITERALS
 literal     = number
@@ -41,7 +58,7 @@ minus       = "-"
 dec_point   = "."
 
 // array literal
-array       = "[" values:dot_syntax "]"
+array       = ws "[" values:dot_syntax "]" ws
                                     {return _('array', values)}
 
 // IDENTIFIER
@@ -50,7 +67,6 @@ iden_head   = unicode_letter
             / "$"
             / "_"
 iden_part   = iden_head
-            / unicode_combining_mark
             / unicode_digit
 unicode_letter
             = [A-z]

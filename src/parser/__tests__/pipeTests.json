@@ -1,0 +1,62 @@
+[
+  [
+    "",
+    ".fo_o | 3",
+    {
+      "type": "query",
+      "value": {
+        "type": "dot_syntax", "value": [
+          {
+            "type": "pipe", "value": [
+              {"type": "attribute", "value": "fo_o"},
+              {"type": "number", "value": "3"}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  [
+    "",
+    ".fo_o | [3]",
+    {
+      "type": "query",
+      "value": {
+        "type": "dot_syntax", "value": [
+          {
+            "type": "pipe", "value": [
+              {"type": "attribute", "value": "fo_o"},
+              {"type": "array", "value": {
+                "type": "dot_syntax", "value": [
+                  {"type": "number", "value": "3"}
+                ]
+              }}
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  [
+    "",
+    ".fo_o | [3] | .",
+    {
+      "type": "query",
+      "value": {
+        "type": "dot_syntax", "value": [
+          {
+            "type": "pipe", "value": [
+              {"type": "attribute", "value": "fo_o"},
+              {"type": "array", "value": {
+                "type": "dot_syntax", "value": [
+                  {"type": "number", "value": "3"}
+                ]
+              }},
+              {"type": "identity", "value": null}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+]
